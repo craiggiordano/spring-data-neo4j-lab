@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class LabRepositoryTest {
 
     @Test
     public void canFindLabBySingleLong() throws Exception {
-        List<Lab> labs = labRepository.findLabBySingleLong(SINGLE_LONG_1);
+        EndResult<Lab> labs = (EndResult<Lab>) labRepository.findAllByPropertyValue("singleLong", SINGLE_LONG_1);
         validate(labs);
     }
 
@@ -70,6 +71,15 @@ public class LabRepositoryTest {
     public void canFindLabByMultipleLong() throws Exception {
         String searchKey = "fooLong:" + FOO_LONG_1 + " AND barLong:" + BAR_LONG_2;
         List<Lab> labs = labRepository.findLabByMultipleLong(searchKey);
+        validate(labs);
+    }
+    
+    private void validate(EndResult<Lab> endResult) {
+        List<Lab> labs = new ArrayList<Lab>();
+        Iterator<Lab> iterator = endResult.iterator();
+        while(iterator.hasNext()) {
+            labs.add(iterator.next());
+        }
         validate(labs);
     }
 
