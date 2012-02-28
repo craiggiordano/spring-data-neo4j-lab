@@ -55,7 +55,7 @@ public class LabRepositoryTest {
     }
 
     @Test
-    public void canFindLabByMultipleString()  throws Exception {
+    public void canFindLabByMultipleString() throws Exception {
         String searchKey = "foo:" + FOO_1 + " AND bar:" + BAR_1;
         List<Lab> labs = labRepository.findLabByMultipleString(searchKey);
         validate(labs);
@@ -63,7 +63,7 @@ public class LabRepositoryTest {
 
     @Test
     public void canFindLabBySingleLong() throws Exception {
-        EndResult<Lab> labs = (EndResult<Lab>) labRepository.findAllByPropertyValue("singleLong", SINGLE_LONG_1);
+        EndResult<Lab> labs = labRepository.findAllByPropertyValue("singleLong", SINGLE_LONG_1);
         validate(labs);
     }
 
@@ -73,11 +73,11 @@ public class LabRepositoryTest {
         List<Lab> labs = labRepository.findLabByMultipleLong(searchKey);
         validate(labs);
     }
-    
+
     private void validate(EndResult<Lab> endResult) {
         List<Lab> labs = new ArrayList<Lab>();
         Iterator<Lab> iterator = endResult.iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             labs.add(iterator.next());
         }
         validate(labs);
